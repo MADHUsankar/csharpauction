@@ -1,0 +1,51 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <a href="/Logout">Logout</a>
+        <h3>Current Auctions</h3>
+        <h5>Hi @ViewBag.CurrUser.FirstName</h5>
+
+
+        <table>
+            <thead>
+                <tr>
+                    <td>Product</td>
+                    <td>SellerId</td>
+                    <td>Top Bid</td>
+                    <td>Time Remaining</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                @if( @ViewBag.Auctions!=null){
+                @foreach(var auct in @ViewBag.Auctions){
+                    <tr>
+                        <td><a href="Auction/@auct.AuctionObjId">@auct.Name</a></td>
+                        <td>  @auct.CreatedBy.FirstName</td>
+                        
+                        
+                        <td>@auct.Bids[@auct.Bids.Count - 1].Amount</td>
+                        
+                        
+                        @{
+                            TimeSpan age = @auct.EndDate.Subtract(DateTime.Now);
+                            int diff = Convert.ToInt32(age.TotalDays);
+                        }
+                        <td>  @diff Days </td>
+                        
+                        @if(@auct.UserId == @ViewBag.CurrUser.UserId){
+                            <td><a href="Delete/@auct.AuctionObjId">Delete</a></td>
+                        }
+                        
+                    </tr>
+                }
+                }
+            </tbody>
+        </table>
+        <h5>Your Current Wallet : $ @ViewBag.CurrUser.Wallet</h5>
+        <button><a href="Create">New Auction</a></button>
+    </body>
+
+</html>

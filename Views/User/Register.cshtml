@@ -1,0 +1,81 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Hello!</title>
+         <link rel="stylesheet" href="~/css/style.css"/>
+    </head>
+<body>
+    <h1> REGISTER </h1>
+<form action="processuser" method="post">
+    <p>FirstName: <input type="text" name="FirstName"/></p>
+    <p>LastName: <input type="text" name="LastName"/></p>
+     <p> Username: <input type="text" name="Username"/></p>
+      <p> Password: <input type="password" name="Password"/></p>
+      <p> Confirm Password: <input type="password" name="Confirmpassword"/></p>
+   
+    <button type="submit">Register</button>
+</form>
+<div>
+    @{
+        if (@ViewBag.status=="regfail" &&  @ViewBag.status=="regfailspecific"){
+        foreach(var error in ViewBag.errors)
+            {
+                if(@error.Errors.Count > 0)
+                {
+                    <p>@error.Errors[0].ErrorMessage</p>
+                }
+            }
+             <p>@ViewBag.regerror </p>
+        }
+
+        else if (@ViewBag.status=="regfail" ){
+        foreach(var error in ViewBag.errors)
+            {
+                if(@error.Errors.Count > 0)
+                {
+                    <p>@error.Errors[0].ErrorMessage</p>
+                }
+            }
+            
+        }
+
+
+         else if (@ViewBag.status!="regfail" &&  @ViewBag.status=="regfailspecific"){
+            <p>@ViewBag.regerror </p>}
+
+    }
+</div>
+
+ 
+<h1> LOGIN</h1>
+<form action="processlogin" method="post">
+      <p> Email: <input type="text" name="Username"/></p>
+      <p> Password: <input type="password" name="Password"/></p>   
+    <button type="submit">Login!</button>
+</form>
+<div>
+    @{
+        if (@ViewBag.status=="loginfail"){
+        foreach(var error in ViewBag.errors)
+            {
+                if(@error.Errors.Count > 0)
+                {
+                    <p>@error.Errors[0].ErrorMessage</p>
+                }
+            }
+    
+        }
+        if (@ViewBag.status=="loginfailspecific"){
+            <p>@ViewBag.loginerror </p>}
+
+    }
+       </div>
+
+</body> 
+</html>
+

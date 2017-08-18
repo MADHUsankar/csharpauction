@@ -1,0 +1,30 @@
+<html> 
+    <head></head>
+    <body>
+        <a href="/Logout">Logout</a>
+        <a href="/Home">Home</a>
+
+        <h3> @ViewBag.Auction.Name </h3>
+        <h4>Created By: @ViewBag.Creator.FirstName</h4>
+        @{
+            TimeSpan age = @ViewBag.Auction.EndDate.Subtract(DateTime.Now);
+            int diff = Convert.ToInt32(age.TotalDays);
+        }
+        <h5>Time Remaining: @diff Days</h5>
+        <p>Description: @ViewBag.Auction.Description</p>
+
+         @if(@ViewBag.Bid != null){
+            <h4>Current Highest Bid: @ViewBag.Bid.Amount</h4>
+            //<h4>By: User @ViewBag.Bid.UserId</h4>
+            <h4>By: @ViewBag.Bid.Bidder.FirstName</h4>
+        }
+       
+        <form action="/Bid/@ViewBag.Auction.AuctionObjId" method="post">
+            <input type="number" name="bid" placeholder="Bid <here></here>..."/>
+            <input type="hidden" name="auctid"/>
+            <button type="submit">Bid!</button>
+            @ViewBag.BidError
+        </form>
+
+    </body>
+</html>

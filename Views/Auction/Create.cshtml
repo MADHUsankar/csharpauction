@@ -1,0 +1,35 @@
+<html>
+    <head>
+        @model csharpbelt.Models.AuctionObjViewModel
+        <style type="text/css">
+		    form * { display : block;}
+	    </style>
+    </head>
+    <body>
+        <a href="/Logout">Logout</a>
+        <a href="/Home">Home</a>
+        
+        <h1>New Auction</h1>
+
+        <form asp-action="Add" asp-controller="Auction" method="post">
+            <label asp-for="Name"></label>
+            <input asp-for="Name">
+            <span asp-validation-for="Name"></span>
+
+            <label asp-for="Description"></label>
+            <input asp-for="Description">
+            <span asp-validation-for="Description"></span>
+
+            <label asp-for="StartingBid"></label>
+            <input type="number" asp-for="StartingBid">
+            <span asp-validation-for="StartingBid"></span>
+            @ViewBag.BidError
+
+            <label asp-for="EndDate"></label>
+            <input type="date" asp-for="EndDate">
+            <span asp-validation-for="EndDate"></span>
+            @ViewBag.DateError
+
+            <button type="submit">Create Auction</button>
+        </form>
+
